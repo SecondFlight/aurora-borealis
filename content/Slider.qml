@@ -54,13 +54,13 @@ import QtQuick 2.0
 Rectangle {
     id: slider
 
-   // property alias text: buttonText.text
+    // property alias text: buttonText.text
     Accessible.role: Accessible.Slider
 
     property int value: 50         // required
-    property int minimumValue: 0  // optional (default INT_MIN)
+    property int minimumValue: 0   // optional (default INT_MIN)
     property int maximumValue: 100 // optional (default INT_MAX)
-    property int stepSize: 1      // optional (default 1)
+    property int stepSize: 1       // optional (default 1)
 
     width: 17
     height: 100
@@ -71,25 +71,24 @@ Rectangle {
     antialiasing: true
 
     Rectangle {
-      //  visible: false
         id: indicator
         x: 1
         y: (parent.height - 2) - ((parent.height-2) / maximumValue) * value
         height: ((parent.height - 2) / maximumValue) * value
         width: parent.width - 2
         color: "#24FFFFFF"
-       // color:"white"
 
         Behavior on y {
-            NumberAnimation { duration: 100 }
+            NumberAnimation { duration: 20 }
         }
+
         Behavior on height {
-            NumberAnimation { duration: 100 }
+            NumberAnimation { duration: 20 }
         }
 
     }
-    Rectangle
-    {
+
+    Rectangle {
         id: line
         x: 1
         y: indicator.y
@@ -100,20 +99,13 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: {
-           var pos = maximumValue - mouse.y / slider.height * (maximumValue - minimumValue) + minimumValue
-            console.log("mouse " + mouse.y)
-            console.log("value" + pos)
+        onClicked: setPosition(mouse)
+        onMouseYChanged: setPosition(mouse)
+
+        function setPosition(mouse) {
+            var pos = maximumValue - mouse.y / slider.height * (maximumValue - minimumValue) + minimumValue
+            pos = Math.max(minimumValue, Math.min(pos, maximumValue))
             slider.value = pos
         }
-//        onDragChanged: {
-//            var pos = maximumValue - mouse.y / slider.height * (maximumValue - minimumValue) + minimumValue
-//             console.log("mouse " + mouse.y)
-//             console.log("value" + pos)
-//             slider.value = pos
-//        }
     }
-
-    Keys.onLeftPressed: value > minimumValue ? value = value - stepSize : minimumValue
-    Keys.onRightPressed: value < maximumValue ? value = value + stepSize : maximumValue
 }
