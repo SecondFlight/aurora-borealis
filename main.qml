@@ -50,8 +50,7 @@
 
 import QtQuick 2.2
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
+import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
 
 Window {
@@ -102,34 +101,33 @@ Window {
             value: 0.5
             orientation: Qt.Vertical
             height: 103
+            width: 16
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
 
-            style: SliderStyle {
-                    handle: Rectangle {
-                        width: 2
-                        height: 16
-                        color: control.pressed ? Qt.rgba(1,1,1,0.75)  :  Qt.rgba(1,1,1,0.45)
-                       }
-
-                    groove: Rectangle {
-                        height: 16
-                        implicitWidth: 103
-                        implicitHeight: 16
+            background: Rectangle {
+                        width: slider.width
+                        height: slider.height
+                        anchors.horizontalCenter: slider.horizontalCenter
                         antialiasing: true
                         color: Qt.rgba(0,0,0,0.07)
                         radius: 2
 
                         Rectangle {
-                              color: Qt.rgba(1,1,1,.14)
-                              anchors.verticalCenter: parent.verticalCenter
-                              width: styleData.handlePosition -1
-                              height: parent.height
+                            y: slider.visualPosition * parent.height
+                            width: slider.width
+                            height: slider.position * parent.height
+                            color: Qt.rgba(1,1,1,.14)
                          }
-
                     }
+            handle: Rectangle {
+                x: slider.leftPadding + (slider.availableWidth - width) / 2
+                y: slider.visualPosition * parent.height
+                width: 16
+                height: 2
+                color: slider.pressed ? Qt.rgba(1,1,1,0.75)  :  Qt.rgba(1,1,1,0.45)
+            }
+
             }
         }
-    }
 }
-
