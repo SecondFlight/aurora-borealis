@@ -1,3 +1,4 @@
+
 /****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
@@ -47,7 +48,6 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-
 import QtQuick 2.2
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
@@ -60,9 +60,10 @@ Window {
     visible: true
     title: qsTr("Aurora Slider")
     color: "#3b3b3b"
-    Item{
+    property alias row: row
+    Item {
         id: backgr
-         anchors.fill : parent
+        anchors.fill: parent
         Image {
             id: bg
             source: "images/panama.jpg"
@@ -80,54 +81,154 @@ Window {
             transparentBorder: true
         }
     }
+
     Button {
         text: "Background"
         onClicked: blurredbg.visible = !blurredbg.visible
     }
 
-    Rectangle{
-        id: slider_container
-        height: 105
-        width: 18
-        color : "transparent"
-        border.color: Qt.rgba(0,0,0,0.4)
+    Row {
+        id: row
+        width: 200
+        height: 400
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        radius: 2
-        antialiasing: true
+        spacing: 20
 
-        Slider {
-            id: slider
-            value: 0.5
-            orientation: Qt.Vertical
-            height: 103
-            width: 16
-            anchors.horizontalCenter: parent.horizontalCenter
+        Rectangle {
+            id: slider_container
+            height: 105
+            width: 18
+            color: "transparent"
+            border.color: Qt.rgba(0, 0, 0, 0.4)
+            radius: 2
+            antialiasing: true
+
+            Slider {
+                id: slider
+                value: 0.5
+                wheelEnabled: true
+                hoverEnabled: true
+                orientation: Qt.Vertical
+                height: 103
+                width: 16
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+
+
+                background: Rectangle {
+                    width: slider.width
+                    height: slider.height
+                    anchors.horizontalCenter: slider.horizontalCenter
+                    antialiasing: true
+                    color: Qt.rgba(0, 0, 0, 0.07)
+                    radius: 2
+
+                    Rectangle {
+                        y: slider.visualPosition * parent.height
+                        width: slider.width
+                        height: slider.position * parent.height
+                        color: Qt.rgba(1, 1, 1, .14)
+                    }
+                }
+                handle: Rectangle {
+                    x: slider.leftPadding + (slider.availableWidth - width) / 2
+                    y: slider.visualPosition * parent.height
+                    width: 16
+                    height: 2
+                    color: slider.pressed ? Qt.rgba(1, 1, 1,
+                                                    0.75) : Qt.rgba(1,
+                                                                    1, 1, 0.45)
+                }
+            }
+        }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Dial {
+            id: control
+            value: 0
+            width: 19
+            height: 19
+            stepSize: 5.0
+            to: 180
+            from: -180
+            wheelEnabled: true
+            hoverEnabled: true
+            snapMode: Dial.SnapAlways
             anchors.verticalCenter: parent.verticalCenter
 
             background: Rectangle {
-                        width: slider.width
-                        height: slider.height
-                        anchors.horizontalCenter: slider.horizontalCenter
-                        antialiasing: true
-                        color: Qt.rgba(0,0,0,0.07)
-                        radius: 2
+                id: line1
+                width: 28
+                height: 28
+                border.width: 2
+                border.color: Qt.rgba(0, 0, 0, 0.40)
+                color: "transparent"
+                radius: width / 2
 
-                        Rectangle {
-                            y: slider.visualPosition * parent.height
-                            width: slider.width
-                            height: slider.position * parent.height
-                            color: Qt.rgba(1,1,1,.14)
-                         }
-                    }
-            handle: Rectangle {
-                x: slider.leftPadding + (slider.availableWidth - width) / 2
-                y: slider.visualPosition * parent.height
-                width: 16
-                height: 2
-                color: slider.pressed ? Qt.rgba(1,1,1,0.75)  :  Qt.rgba(1,1,1,0.45)
+                Rectangle {
+                    id: line2
+                    anchors.centerIn: parent
+                    width: 26
+                    height: 26
+                    border.width: 2
+                    border.color: Qt.rgba(0, 0, 0, 0.07)
+                    color: "transparent"
+                    radius: width / 2
+                }
+
+                Rectangle {
+                    id: line3
+                    anchors.centerIn: parent
+                    width: 22
+                    height: 22
+                    color: Qt.rgba(1, 1, 1, 0.12)
+                    border.color: Qt.rgba(0, 0, 0, 0.40)
+                    border.width: 1
+                    radius: width / 2
+                }
+
+                Rectangle {
+                    id: line4
+                    anchors.centerIn: parent
+                    width: 20
+                    height: 20
+                    border.width: 1
+                    border.color: Qt.rgba(1, 1, 1, 0.10)
+                    color: Qt.rgba(0, 0, 0, 0)
+                    radius: width / 2
+                }
+
+                Rectangle {
+                    id: dot
+                    visible: Math.round(control.value) == 0 ? true : false
+                    width: 2
+                    height: 2
+                    radius: width / 2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: 6
+                }
+                ProgressCircle {
+                    id: progress
+                    colorCircle: "#1BC18F"
+                    colorBackground: "#00000000"
+                    anchors.centerIn: parent
+                    animationDuration: 10
+                    beginAnimation: true
+                    size: line1.width - 3
+                    lineWidth: 2
+                    endAnimation: true
+                    arcBegin: control.angle < 0 ? control.angle / 140 * 180 : 0
+                    arcEnd: control.angle < 0 ? 0 : control.angle / 140 * 180
+                }
             }
 
+            handle: Rectangle {
+                id: handleItem
+                // override the default handle
             }
         }
+    }
+    function printToConsole(arg) {
+        console.log(arg)
+    }
 }

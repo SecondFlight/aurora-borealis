@@ -11,3 +11,7 @@ OTHER_FILES += \
 
 target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols/controls/slider
 INSTALLS += target
+
+DISTFILES += \
+    WindowForm.ui.qml \
+    Window.qml
