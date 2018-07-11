@@ -83,52 +83,28 @@ Window {
         }
     }
 
-    Column {
-        id: column
+    Grid {
+        spacing:2
+        columns: 10
+
         anchors.fill: parent
+        clip:true
         Button {
             x: 0
             y: 105
             text: "Background"
             onClicked: blurredbg.visible = !blurredbg.visible
         }
-
-        Row {
-            id: row
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 25
-            Panner{
-                value: 0.5
-            }
+        Repeater{
+            model:6
             MixerStrip{}
 
-            SpeakerButton{}
-
-            HeadPhoneButton{}
-
-            Column{
-                spacing:1
-                Plugin{
-                    text: "Amplifier"
-                }
-                Plugin{
-                    text: "Helm"
-                }
-                Plugin{
-                    text: "Ninjas2"
-                }
-
-            }
+        }
 
 
 
         }
     }
 
-
-
-
-
-}
 
 
