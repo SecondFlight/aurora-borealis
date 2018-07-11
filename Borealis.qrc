@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>images/panama.jpg</file>
+        <file>components/ProgressCircle.qml</file>
+        <file>main.cpp</file>
+        <file>components/Fader.qml</file>
+        <file>components/Panner.qml</file>
+        <file>components/DbLabel.qml</file>
+        <file>components/VolumeMeter.qml</file>
+        <file>components/MixerStrip.qml</file>
+        <file>components/ColorBar.qml</file>
+        <file>components/SpeakerButton.qml</file>
+        <file>components/GradientBorder.qml</file>
+        <file>svg/Speaker_Icon.svg</file>
+        <file>components/HeadPhoneButton.qml</file>
+        <file>svg/HeadPhone_Icon.svg</file>
+        <file>components/Plugin.qml</file>
+    </qresource>
+</RCC>

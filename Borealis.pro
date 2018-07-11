@@ -1,11 +1,11 @@
 TEMPLATE = app
-TARGET = slider
+TARGET = Borealis
 QT += qml quick
 
 SOURCES += \
     main.cpp
 RESOURCES += \
-    slider.qrc
+    Borealis.qrc
 OTHER_FILES += \
     main.qml
 
@@ -14,4 +14,5 @@ INSTALLS += target
 
 DISTFILES += \
     WindowForm.ui.qml \
-    Window.qml
+    Window.qml \
+    ProgressCircle.qml
