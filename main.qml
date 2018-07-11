@@ -98,7 +98,7 @@ Window {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 25
             Panner{
-                value: 0
+                value: 0.5
             }
             MixerStrip{}
 
