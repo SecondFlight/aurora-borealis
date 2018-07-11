@@ -25,6 +25,7 @@ Item {
             id: labelContainer
             width: 73
             height: root.height
+            clip: true
 
 
             Rectangle {
