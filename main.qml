@@ -52,15 +52,16 @@ import QtQuick 2.2
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.2
 import QtGraphicalEffects 1.0
+import "components"
 
 Window {
     id: window
     width: 640
     height: 480
     visible: true
-    title: qsTr("Aurora Slider")
+    title: qsTr("Borealis")
     color: "#3b3b3b"
-    property alias row: row
+    // property alias row: row
     Item {
         id: backgr
         anchors.fill: parent
@@ -82,153 +83,52 @@ Window {
         }
     }
 
-    Button {
-        text: "Background"
-        onClicked: blurredbg.visible = !blurredbg.visible
-    }
-
-    Row {
-        id: row
-        width: 200
-        height: 400
-        anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 20
-
-        Rectangle {
-            id: slider_container
-            height: 105
-            width: 18
-            color: "transparent"
-            border.color: Qt.rgba(0, 0, 0, 0.4)
-            radius: 2
-            antialiasing: true
-
-            Slider {
-                id: slider
-                value: 0.5
-                wheelEnabled: true
-                hoverEnabled: true
-                orientation: Qt.Vertical
-                height: 103
-                width: 16
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-
-
-                background: Rectangle {
-                    width: slider.width
-                    height: slider.height
-                    anchors.horizontalCenter: slider.horizontalCenter
-                    antialiasing: true
-                    color: Qt.rgba(0, 0, 0, 0.07)
-                    radius: 2
-
-                    Rectangle {
-                        y: slider.visualPosition * parent.height
-                        width: slider.width
-                        height: slider.position * parent.height
-                        color: Qt.rgba(1, 1, 1, .14)
-                    }
-                }
-                handle: Rectangle {
-                    x: slider.leftPadding + (slider.availableWidth - width) / 2
-                    y: slider.visualPosition * parent.height
-                    width: 16
-                    height: 2
-                    color: slider.pressed ? Qt.rgba(1, 1, 1,
-                                                    0.75) : Qt.rgba(1,
-                                                                    1, 1, 0.45)
-                }
-            }
+    Column {
+        id: column
+        anchors.fill: parent
+        Button {
+            x: 0
+            y: 105
+            text: "Background"
+            onClicked: blurredbg.visible = !blurredbg.visible
         }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Dial {
-            id: control
-            value: 0
-            width: 19
-            height: 19
-            stepSize: 5.0
-            to: 180
-            from: -180
-            wheelEnabled: true
-            hoverEnabled: true
-            snapMode: Dial.SnapAlways
-            anchors.verticalCenter: parent.verticalCenter
 
-            background: Rectangle {
-                id: line1
-                width: 28
-                height: 28
-                border.width: 2
-                border.color: Qt.rgba(0, 0, 0, 0.40)
-                color: "transparent"
-                radius: width / 2
+        Row {
+            id: row
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 25
+            Panner{
+                value: 0
+            }
+            MixerStrip{}
 
-                Rectangle {
-                    id: line2
-                    anchors.centerIn: parent
-                    width: 26
-                    height: 26
-                    border.width: 2
-                    border.color: Qt.rgba(0, 0, 0, 0.07)
-                    color: "transparent"
-                    radius: width / 2
+            SpeakerButton{}
+
+            HeadPhoneButton{}
+
+            Column{
+                spacing:1
+                Plugin{
+                    text: "Amplifier"
+                }
+                Plugin{
+                    text: "Helm"
+                }
+                Plugin{
+                    text: "Ninjas2"
                 }
 
-                Rectangle {
-                    id: line3
-                    anchors.centerIn: parent
-                    width: 22
-                    height: 22
-                    color: Qt.rgba(1, 1, 1, 0.12)
-                    border.color: Qt.rgba(0, 0, 0, 0.40)
-                    border.width: 1
-                    radius: width / 2
-                }
-
-                Rectangle {
-                    id: line4
-                    anchors.centerIn: parent
-                    width: 20
-                    height: 20
-                    border.width: 1
-                    border.color: Qt.rgba(1, 1, 1, 0.10)
-                    color: Qt.rgba(0, 0, 0, 0)
-                    radius: width / 2
-                }
-
-                Rectangle {
-                    id: dot
-                    visible: Math.round(control.value) == 0 ? true : false
-                    width: 2
-                    height: 2
-                    radius: width / 2
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: parent.top
-                    anchors.topMargin: 6
-                }
-                ProgressCircle {
-                    id: progress
-                    colorCircle: "#1BC18F"
-                    colorBackground: "#00000000"
-                    anchors.centerIn: parent
-                    animationDuration: 10
-                    beginAnimation: true
-                    size: line1.width - 3
-                    lineWidth: 2
-                    endAnimation: true
-                    arcBegin: control.angle < 0 ? control.angle / 140 * 180 : 0
-                    arcEnd: control.angle < 0 ? 0 : control.angle / 140 * 180
-                }
             }
 
-            handle: Rectangle {
-                id: handleItem
-                // override the default handle
-            }
+
+
         }
     }
-    function printToConsole(arg) {
-        console.log(arg)
-    }
+
+
+
+
+
 }
+
+
