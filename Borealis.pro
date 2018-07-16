@@ -3,7 +3,8 @@ TARGET = Borealis
 QT += qml quick
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    backend.cpp
 RESOURCES += \
     Borealis.qrc
 OTHER_FILES += \
@@ -12,7 +13,11 @@ OTHER_FILES += \
 target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols/controls/slider
 INSTALLS += target
 
-DISTFILES += \
-    WindowForm.ui.qml \
-    Window.qml \
-    ProgressCircle.qml
+#DISTFILES += \
+#    WindowForm.ui.qml \
+#    Window.qml \
+#    ProgressCircle.qml \
+#    components/NuSlider.qml
+
+HEADERS += \
+    backend.h
