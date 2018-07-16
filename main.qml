@@ -55,24 +55,27 @@ import QtGraphicalEffects 1.0
 import borealis.backend 1.0
 import "components"
 
+
 ApplicationWindow {
     id: borealis
     width: 640
     height: 480
     visible: true
     property bool mouseHidden: false
+    property alias backend: backend
     title: qsTr("Borealis")
     color: "#3b3b3b"
+
 
     BackEnd {
         id: backend
     }
 
-    MouseArea{
+    MouseArea {
         id:mainMouseArea
         anchors.fill: parent
         cursorShape: mouseHidden ? Qt.BlankCursor: Qt.ArrowCursor
-    }
+        }
 
     // property alias row: row
     Item {
@@ -108,6 +111,13 @@ ApplicationWindow {
             text: "Background"
             onClicked: blurredbg.visible = !blurredbg.visible
         }
+
+        Button {
+            id: movecursor
+            text: "Move Cursor"
+    //        onClicked: backend.moveCursor()
+        }
+
         Repeater{
             model:1
             MixerStrip{}

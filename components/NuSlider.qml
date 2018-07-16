@@ -43,19 +43,16 @@ Item {
         onPressedChanged:
         {
             pressed ? borealis.mouseHidden = true : borealis.mouseHidden = false
-            if (!pressed())
-        {
-
-                mouseX = root.width / 2
-                mouseY = value * root.height
-            }
         }
+        onReleased: backend.moveCursor()
+
+
 
         onMouseYChanged: {
             var pos = maximumValue - mouse.y / root.height * (maximumValue - minimumValue) + minimumValue
             root.value = Math.max(minimumValue, Math.min(pos, maximumValue))
 
-       }
+        }
 
     }
     function logValue()

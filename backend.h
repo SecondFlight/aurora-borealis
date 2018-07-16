@@ -12,6 +12,8 @@ public:
     explicit BackEnd(QObject *parent = nullptr);
 
 signals:
+
+public slots:
     void moveCursor();
 
 private:
