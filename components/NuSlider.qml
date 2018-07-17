@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.11
 
 Item {
     id: root
@@ -9,6 +9,8 @@ Item {
     implicitHeight: 100
     onValueChanged: logValue()
     property bool isActive: false
+    property variant mappedcursor
+
 
     Rectangle
     {
@@ -39,12 +41,12 @@ Item {
     MouseArea{
         id: mouse_area
         anchors.fill: root
-        cursorShape: pressed ? Qt.BlankCursor: Qt.ArrowCursor
+        cursorShape: pressed ? Qt.BlankCursor : Qt.ArrowCursor
         onPressedChanged:
         {
             pressed ? borealis.mouseHidden = true : borealis.mouseHidden = false
         }
-        onReleased: backend.moveCursor()
+        onReleased: move_Cursor()
 
 
 
@@ -58,6 +60,12 @@ Item {
     function logValue()
     {
         console.log(value)
+    }
+    function move_Cursor()
+    {
+        mappedcursor = mapToGlobal(handle.width / 2,handle.y)
+        console.log(mappedcursor)
+        backend.moveCursor(mappedcursor)
     }
 
 

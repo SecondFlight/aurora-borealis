@@ -66,7 +66,6 @@ ApplicationWindow {
     title: qsTr("Borealis")
     color: "#3b3b3b"
 
-
     BackEnd {
         id: backend
     }
@@ -75,7 +74,7 @@ ApplicationWindow {
         id:mainMouseArea
         anchors.fill: parent
         cursorShape: mouseHidden ? Qt.BlankCursor: Qt.ArrowCursor
-        }
+    }
 
     // property alias row: row
     Item {
@@ -99,33 +98,20 @@ ApplicationWindow {
         }
     }
 
-    Grid {
-        spacing:2
-        columns: 10
-
-        anchors.fill: parent
-        clip:true
-        Button {
-            x: 0
-            y: 105
-            text: "Background"
-            onClicked: blurredbg.visible = !blurredbg.visible
-        }
-
-        Button {
-            id: movecursor
-            text: "Move Cursor"
-    //        onClicked: backend.moveCursor()
-        }
-
-        Repeater{
-            model:1
-            MixerStrip{}
-
-        }
-        NuSlider{}
-        }
+    Button {
+        x: 0
+        y: 105
+        text: "Background"
+        onClicked: blurredbg.visible = !blurredbg.visible
     }
+
+    NuSlider{
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+
+    }
+
+}
 
 
 

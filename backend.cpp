@@ -5,7 +5,9 @@ BackEnd::BackEnd(QObject *parent) :
 {
 }
 
-void BackEnd::moveCursor()
+void BackEnd::moveCursor(QPointF p)
 {
-    cursor.setPos(0,0);
+    int x = p.x();
+    int y = p.y();
+    cursor.setPos(x,y);
 }

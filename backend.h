@@ -14,7 +14,7 @@ public:
 signals:
 
 public slots:
-    void moveCursor();
+    void moveCursor(QPointF p);
 
 private:
     QCursor cursor;
