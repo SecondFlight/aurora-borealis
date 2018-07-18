@@ -19,7 +19,7 @@ public slots:
     void moveCursor(QPointF p);
     void setCursorShape(Qt::CursorShape shape);
 private:
-    QCursor cursor;
+
 };
 
 

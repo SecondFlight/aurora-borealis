@@ -11,7 +11,7 @@ void BackEnd::moveCursor(QPointF p)
 {
     int x = p.x();
     int y = p.y();
-    cursor.setPos(x,y);
+    QCursor::setPos(x,y);
 }
 
 void BackEnd::setCursorShape(Qt::CursorShape shape)
