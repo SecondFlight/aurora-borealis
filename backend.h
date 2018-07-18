@@ -1,8 +1,10 @@
 #ifndef BACKEND_H
 #define BACKEND_H
 
+
 #include <QObject>
 #include <QCursor>
+#include <QGuiApplication>
 
 class BackEnd : public QObject
 {
@@ -15,9 +17,11 @@ signals:
 
 public slots:
     void moveCursor(QPointF p);
-
+    void setCursorShape(Qt::CursorShape shape);
 private:
     QCursor cursor;
 };
+
+
 
 #endif // BACKEND_H

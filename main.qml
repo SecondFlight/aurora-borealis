@@ -70,13 +70,6 @@ ApplicationWindow {
         id: backend
     }
 
-    MouseArea {
-        id:mainMouseArea
-        anchors.fill: parent
-        cursorShape: mouseHidden ? Qt.BlankCursor: Qt.ArrowCursor
-    }
-
-    // property alias row: row
     Item {
         id: backgr
         anchors.fill: parent

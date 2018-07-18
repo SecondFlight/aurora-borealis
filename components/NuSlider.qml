@@ -41,15 +41,17 @@ Item {
     MouseArea{
         id: mouse_area
         anchors.fill: root
-        cursorShape: pressed ? Qt.BlankCursor : Qt.ArrowCursor
         onPressedChanged:
         {
-            pressed ? borealis.mouseHidden = true : borealis.mouseHidden = false
+           if (pressed)  {
+               backend.setCursorShape(Qt.BlankCursor)
+           }
         }
-        onReleased: move_Cursor()
-
-
-
+        onReleased:
+        {
+            move_Cursor()
+            backend.setCursorShape(Qt.ArrowCursor)
+        }
         onMouseYChanged: {
             var pos = maximumValue - mouse.y / root.height * (maximumValue - minimumValue) + minimumValue
             root.value = Math.max(minimumValue, Math.min(pos, maximumValue))
