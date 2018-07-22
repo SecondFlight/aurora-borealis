@@ -1,10 +1,11 @@
 TEMPLATE = app
 TARGET = Borealis
-QT += qml quick
+QT += qml quick widgets
 
 SOURCES += \
     main.cpp \
-    backend.cpp
+    backend.cpp \
+    myeventfilter.cpp
 RESOURCES += \
     Borealis.qrc
 OTHER_FILES += \
@@ -20,4 +21,5 @@ INSTALLS += target
 #    components/NuSlider.qml
 
 HEADERS += \
-    backend.h
+    backend.h \
+    myeventfilter.h

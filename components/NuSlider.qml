@@ -8,7 +8,6 @@ Item {
     implicitWidth: 20
     implicitHeight: 100
     onValueChanged: logValue()
-    property bool isActive: false
     property variant mappedcursor
 
 

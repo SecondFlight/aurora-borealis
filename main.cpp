@@ -47,20 +47,31 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include "backend.h"
+//#include "myeventfilter.h"
 
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
-    qmlRegisterType<BackEnd>("borealis.backend", 1, 0, "BackEnd");
+ //   MyEventFilter filter;
 
     QQmlApplicationEngine engine;
+ //   app.installEventFilter(&filter);
+    qmlRegisterType<BackEnd>("borealis.backend", 1, 0, "BackEnd");
+
+
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+/*    QObject::connect(&filter,
+                         SIGNAL(windowStateChange()),
+                         engine.rootObjects().takeFirst(),
+                         SLOT(windowStateChange()));
+                         */
+
     if (engine.rootObjects().isEmpty())
         return -1;
     return app.exec();

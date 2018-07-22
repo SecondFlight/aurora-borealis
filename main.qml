@@ -97,13 +97,13 @@ ApplicationWindow {
         text: "Background"
         onClicked: blurredbg.visible = !blurredbg.visible
     }
+    Row{
+        spacing:10
+        anchors.centerIn: parent
+        NuDial{
 
-    NuSlider{
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-
-    }
-
+        }
+   }
 }
 
 

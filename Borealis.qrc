@@ -17,5 +17,6 @@
         <file>svg/HeadPhone_Icon.svg</file>
         <file>components/Plugin.qml</file>
         <file>components/NuSlider.qml</file>
+        <file>components/NuDial.qml</file>
     </qresource>
 </RCC>

@@ -18,11 +18,11 @@ Item {
 
     property alias beginAnimation: animationArcBegin.enabled
     property alias endAnimation: animationArcEnd.enabled
-
     property int animationDuration: 200
 
     onArcBeginChanged: canvas.requestPaint()
     onArcEndChanged: canvas.requestPaint()
+    onLineWidthChanged: canvas.requestPaint()
 
     Behavior on arcBegin {
        id: animationArcBegin
