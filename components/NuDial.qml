@@ -25,25 +25,25 @@ Item {
         border.width: 1
         border.color: Qt.rgba(0,0,0,0.40)
         color:"transparent"
+
+    }
+    Rectangle{
+        id: line2
+        anchors.centerIn: parent
+        width: root.width - 2// 26
+        height: root.height -2
+        border.width: 2
+        border.color: Qt.rgba(0,0,0, 0.07)
+        color: "transparent"
+        radius: width / 2
     }
     Item {
         id:innerCircle
         width:root.width -2 // 26
         height: root.height -2
         anchors.centerIn: root
-
-
-        Rectangle{
-            id: line2
-            anchors.centerIn: parent
-            width: parent.width // 26
-            height: parent.height
-            border.width: 2
-            border.color: Qt.rgba(0,0,0, 0.07)
-            color: "transparent"
-            radius: width / 2
-        }
-        Rectangle {
+         Rectangle {
+          //  visible: false
             id: line3
             anchors.centerIn: parent
             width: parent.width - 4 // 22
@@ -53,7 +53,16 @@ Item {
             border.width: 1
             radius: width / 2
         }
+//        Image{
+//           // visible:
+//            id: gradientborder
+//            anchors.centerIn: parent
+//            source: "../svg/bordergradient.svg"
+
+//        }
+
         GradientBorder {
+           // visible: false
             id: line4
             anchors.centerIn: parent
             width: parent.width - 6 // 20
@@ -62,7 +71,6 @@ Item {
             borderWidth: 1
         }
         Rectangle {
-
             id: dot
             visible: Math.round(root.value * 100) == 50 ? true : false
             width: 2
@@ -74,6 +82,7 @@ Item {
         }
     }
     ProgressCircle{
+
         id:progress
         colorCircle: "#1BC18F"
         colorBackground: "#00000000"
@@ -103,6 +112,9 @@ Item {
             if (pressed)
             {
                 calcValue(mouseY)
+
+        //        move_Cursor()
+
             }
 
         }
@@ -110,12 +122,14 @@ Item {
         onPressed: {
             // store mouse x / y
             mappedcursor = mapToGlobal(mouseX,mouseY)
+            deltaY = mouseY
         }
         onPressedChanged:
         {
-            // hide cursor
+
             if (pressed)  {
-                backend.setCursorShape(Qt.BlankCursor)
+                backend.setCursorShape(Qt.BlankCursor) // hide cursor
+
             }
         }
         onReleased:
@@ -177,7 +191,9 @@ Item {
         value = Math.max(minimumValue, Math.min(value, maximumValue))
         angle = (value-0.5) * 360
         // console.log(value + "," + angle)
-        deltaY = newY
+       // console.log( newY +"-"+ deltaY + "=" + (newY-deltaY))
+
+        move_Cursor()
 
     }
     function move_Cursor()
