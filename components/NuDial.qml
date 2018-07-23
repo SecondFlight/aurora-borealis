@@ -21,16 +21,17 @@ Item {
         width: root.width // 28
         height: root.height
         radius: root.width / 2
-        anchors.centerIn: parent
+        anchors.centerIn: root
         border.width: 1
         border.color: Qt.rgba(0,0,0,0.40)
         color:"transparent"
     }
-    Item{
-        id: innerPart
-        width: root.width - 2 // 26
-        height: root.width - 2
-        anchors.centerIn: parent
+    Item {
+        id:innerCircle
+        width:root.width -2 // 26
+        height: root.height -2
+        anchors.centerIn: root
+
 
         Rectangle{
             id: line2
@@ -46,7 +47,7 @@ Item {
             id: line3
             anchors.centerIn: parent
             width: parent.width - 4 // 22
-            height: parent.height -4
+            height: parent.height - 4
             color: Qt.rgba(1, 1, 1, 0.12)
             border.color: Qt.rgba(0, 0, 0, 0.40)
             border.width: 1
@@ -61,6 +62,7 @@ Item {
             borderWidth: 1
         }
         Rectangle {
+
             id: dot
             visible: Math.round(root.value * 100) == 50 ? true : false
             width: 2
@@ -68,7 +70,7 @@ Item {
             radius: width / 2
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 6
+            anchors.topMargin: 5
         }
     }
     ProgressCircle{
@@ -89,8 +91,6 @@ Item {
         id: dialMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        property bool dialContainsMouse: false
-
         onContainsMouseChanged:
         {
             if (!pressed)
@@ -99,13 +99,7 @@ Item {
                 root.state = "in"
         }
 
-        onDialContainsMouseChanged:
-        {
-            dialContainsMouse ? root.state="in" : root.state="out"
-        }
-
         onMouseYChanged: {
-            console.log(containsMouse +", y:" + mouseY)
             if (pressed)
             {
                 calcValue(mouseY)
@@ -135,7 +129,7 @@ Item {
         {
             //cursorShape=Qt.BlankCursor
             var wheelStep = wheel.angleDelta.y / 120 * root.step
-           // console.log(wheelStep)
+            // console.log(wheelStep)
             value = value + wheelStep
             value = Math.max(minimumValue, Math.min(value, maximumValue))
             angle = (value-0.5) * 360
@@ -145,33 +139,33 @@ Item {
     states: [
         State {
             name: "in"
-            PropertyChanges { target: innerPart; width: root.width - 2 - offset; height:root.height - 2 - offset}
-            PropertyChanges { target: progress; lineWidth: 3}
-
+            PropertyChanges {target: innerCircle;scale: 0.85}
+            PropertyChanges {target: progress; lineWidth: 3}
         },
 
         State {
             name: "out"
-            PropertyChanges { target: innerPart; width: root.width - 2; height: root.height -2}
-            PropertyChanges { target: progress; lineWidth: 2}
+            PropertyChanges {target: innerCircle;scale: 1.0}
+            PropertyChanges {target: progress; lineWidth: 2}
         }
     ]
     transitions: [
         Transition {
-            from: "out"; to: "in"
-            PropertyAnimation { target: innerPart; properties: "width,height"; duration: 100 }
-            NumberAnimation { target: progress; property: progress.lineWidth; duration: 100}
-
-
-
+            from: "out"
+            to: "in"
+            PropertyAnimation{ targets: innerCircle ;properties: "scale";duration: 200}
+            PropertyAnimation{ target: progress; property: progress.lineWidth;duration: 200}
         },
         Transition {
-            from: "in"; to: "out"
-            PropertyAnimation { target: innerPart; properties: "width,height"; duration: 100 }
-            NumberAnimation { target: progress; property: progress.lineWidth ; duration: 100}
-
+            from: "in"
+            to: "out"
+            PropertyAnimation{ targets:innerCircle ;properties: "scale";duration: 200}
+            PropertyAnimation{ target: progress; property: progress.lineWidth;duration: 200}
         }
+
+
     ]
+
     function calcValue(newY)
     {
         if (newY < deltaY) {

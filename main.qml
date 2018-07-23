@@ -100,7 +100,7 @@ ApplicationWindow {
     Row{
         spacing:10
         anchors.centerIn: parent
-        NuDial{
+        MixerStrip{
 
         }
    }

@@ -109,7 +109,7 @@ Column{
             }
 
         }
-        Panner{
+        NuDial{
             anchors.top: parent.top
             anchors.topMargin: 28
             anchors.left: parent.left
