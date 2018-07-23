@@ -17,7 +17,7 @@ Rectangle {
             height: root.height
             anchors.centerIn: parent
             active: borderGradient
-            sourceComponent: border
+            sourceComponent: gradientborder
         }
 
         Gradient {
@@ -34,7 +34,7 @@ Rectangle {
         }
 
         Component {
-            id: border
+            id: gradientborder
             Item {
                 Rectangle {
                     id: borderFill
